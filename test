@@ -1,0 +1,38 @@
+import yfinance as yf
+import pandas as pd
+
+def fetch_data(tickers, period="1mo", interval="1h"):
+    try:
+        data = yf.download(tickers, period=period, interval=interval)
+        return data['Close']
+    except Exception as e:
+        print(f"Error fetching data: {e}")
+        return None
+
+def calculate_strategy_signal(data):
+    components_change = data.pct_change().dropna()
+    components_signal = components_change.applymap(lambda x: 1 if x > 0 else -1)  # 使用applymap而不是apply
+    
+    spy_signal = components_signal['SPY']
+    components_signal['strategy'] = components_signal.iloc[:, :-1].mean(axis=1)
+    components_signal['strategy'] = components_signal['strategy'].apply(lambda x: 1 if x > 0 else -1)
+    
+    return components_signal['strategy'], spy_signal
+
+def compute_accuracy(strategy_signal, spy_signal):
+    total_predictions = len(strategy_signal)
+    correct_predictions = (strategy_signal == spy_signal).sum()
+    accuracy = correct_predictions / total_predictions
+    return accuracy
+
+def main():
+    tickers = ['AAPL', 'MSFT', 'AMZN', 'NVDA', 'NFLX', 'GOOGL', 'TSLA', 'META', 'JPM', 'BRK-B', 'SPY']
+    data = fetch_data(tickers)
+
+    if data is not None:
+        strategy_signal, spy_signal = calculate_strategy_signal(data)
+        accuracy = compute_accuracy(strategy_signal, spy_signal)
+        print(f"Strategy Accuracy: {accuracy * 100:.2f}%")
+
+if __name__ == "__main__":
+    main()
