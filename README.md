@@ -1,4 +1,4 @@
-# Financial Movement Analysis Tool 📈
+# Real-time Financial Movement Prediction and Analysis Tool 📈
 
 Welcome to my repository for a cutting-edge tool meticulously crafted to analyze and visualize the probable movement of stock indices and their components. With features like real-time data fetching, continuous updates every 5 minutes, detailed logging, and an impressive accuracy rate of over 96%, this software not only epitomizes my proficiency in Python programming but also underscores my keen financial acumen.
 
