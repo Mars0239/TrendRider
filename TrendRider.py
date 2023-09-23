@@ -58,6 +58,6 @@ def main(tickers):
         time.sleep(300)
 
 if __name__ == "__main__":
-    tickers = ['AAPL', 'MSFT', 'AMZN', 'NVDA', 'NFLX', 'GOOGL', 'TSLA', 'META', 'JPM', 'BRK-B', 'SPY']
+    tickers = ['AAPL', 'MSFT', 'AMZN', 'NVDA', 'NFLX', 'GOOGL', 'TSLA', 'META', 'JPM', 'BRK-B', 'SPY','QQQ']
     main(tickers)
 
